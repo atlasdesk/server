@@ -1,0 +1,29 @@
+{
+  "name": "@tickety/server",
+  "module": "index.ts",
+  "type": "module",
+  "devDependencies": {
+    "@types/bun": "^1.0.1",
+    "@types/cors": "^2.8.17",
+    "@types/express": "^4.17.21",
+    "prisma-generator-fake-data": "^0.13.0",
+    "zod-prisma": "^0.5.4"
+  },
+	"scripts": {
+		"start:all": "docker compose up -d & bunx prisma studio & bun --watch ./src/server.ts"
+	},
+  "peerDependencies": {
+    "typescript": "^5.0.0"
+  },
+  "dependencies": {
+    "@prisma/client": "5.8.1",
+    "@trpc/client": "^10.45.0",
+    "@trpc/server": "^10.45.0",
+    "cors": "^2.8.5",
+    "express": "^4.18.2",
+    "prisma": "^5.8.1",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.3.3",
+    "zod": "^3.22.4"
+  }
+}

@@ -1,0 +1,114 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+generator faker {
+  provider = "prisma-generator-fake-data"
+  output   = "../src/types/fake-data.ts"
+}
+
+generator zod {
+  provider              = "zod-prisma"
+  output                = "../src/generated/zod"
+  relationModel         = false
+  modelCase             = "PascalCase"
+  modelSuffix           = "Schema"
+  useDecimalJs          = true
+  imports               = null
+  prismaJsonNullability = true
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// schema.prisma
+
+// Define the User model representing users of the ticketing system
+model User {
+  id         Int      @id @default(autoincrement())
+	uid				 String   @default(dbgenerated("gen_random_uuid()")) @unique @db.Uuid
+  username   String
+  email      String   @unique
+  password   String
+  createdAt  DateTime @default(now())
+  name       String?
+  avatar_url String?
+  bio        String?
+  website    String?
+  location   String?
+  surname    String?
+
+  // Define a relation to represent tickets created by the user
+  tickets  Ticket[]
+  // Define a relation to represent comments posted by the user
+  comments Comment[]
+}
+
+// Define the Ticket model representing individual tickets in the system
+model Ticket {
+  id          Int      @id @default(autoincrement())
+	uid				 String   @default(dbgenerated("gen_random_uuid()")) @unique @db.Uuid
+  title       String
+  description String
+  statusId    Int?
+  priorityId  Int?
+  createdAt   DateTime @default(now())
+
+  // Define a relation to the user who created the ticket
+  createdBy   User?           @relation(fields: [createdById], references: [id])
+  status      TicketStatus?   @relation(fields: [statusId], references: [id])
+  priority    TicketPriority? @relation(fields: [priorityId], references: [id])
+  tags        Tags[]
+  createdById Int
+
+  // Define a relation to represent comments on the ticket
+  comments Comment[]
+}
+
+// Define the Comment model representing comments on tickets
+model Comment {
+  id        Int      @id @default(autoincrement())
+	uid				 String   @default(dbgenerated("gen_random_uuid()")) @unique @db.Uuid
+  content   String
+  createdAt DateTime @default(now())
+
+  // Define a relation to the user who posted the comment
+  createdBy   User @relation(fields: [createdById], references: [id])
+  createdById Int
+
+  // Define a relation to the ticket on which the comment was posted
+  ticket   Ticket @relation(fields: [ticketId], references: [id])
+  ticketId Int
+}
+
+model TicketStatus {
+  id    Int    @id @default(autoincrement())
+	uid				 String   @default(dbgenerated("gen_random_uuid()")) @unique @db.Uuid
+  name  String
+  color String
+
+  tickets Ticket[]
+}
+
+model TicketPriority {
+  id    Int    @id @default(autoincrement())
+	uid				 String   @default(dbgenerated("gen_random_uuid()")) @unique @db.Uuid
+  name  String
+  color String
+
+  tickets Ticket[]
+}
+
+model Tags {
+  id    Int    @id @default(autoincrement())
+	uid				 String   @default(dbgenerated("gen_random_uuid()")) @unique @db.Uuid
+  name  String
+  color String
+
+  tickets Ticket[]
+}
