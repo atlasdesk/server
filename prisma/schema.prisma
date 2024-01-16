@@ -32,21 +32,21 @@ datasource db {
 model User {
   id         Int      @id @default(autoincrement())
 	uid				 String   @default(dbgenerated("gen_random_uuid()")) @unique @db.Uuid
-  username   String
   email      String   @unique
   password   String
   createdAt  DateTime @default(now())
   name       String?
+	surname    String?
   avatar_url String?
   bio        String?
   website    String?
   location   String?
-  surname    String?
 
   // Define a relation to represent tickets created by the user
   tickets  Ticket[]
   // Define a relation to represent comments posted by the user
   comments Comment[]
+	refreshTokens RefreshTokens[]
 }
 
 // Define the Ticket model representing individual tickets in the system
@@ -89,7 +89,7 @@ model Comment {
 model TicketStatus {
   id    Int    @id @default(autoincrement())
 	uid				 String   @default(dbgenerated("gen_random_uuid()")) @unique @db.Uuid
-  name  String
+  name  String @unique
   color String
 
   tickets Ticket[]
@@ -98,7 +98,7 @@ model TicketStatus {
 model TicketPriority {
   id    Int    @id @default(autoincrement())
 	uid				 String   @default(dbgenerated("gen_random_uuid()")) @unique @db.Uuid
-  name  String
+  name  String @unique
   color String
 
   tickets Ticket[]
@@ -107,8 +107,22 @@ model TicketPriority {
 model Tags {
   id    Int    @id @default(autoincrement())
 	uid				 String   @default(dbgenerated("gen_random_uuid()")) @unique @db.Uuid
-  name  String
+  name  String @unique
   color String
 
   tickets Ticket[]
+}
+
+
+model RefreshTokens {
+	id         Int     @id @default(autoincrement())
+  token			String  @unique
+	userId				Int
+	// Wir nehmen die IP Adresse des Clients mit auf.
+	// Falls sich die IP Adresse eines Refresh Token Owners ändert, können wir diesen einfach invalidieren.
+	ip				String
+	expiry		DateTime
+
+	// Relationen
+	user			User		@relation(fields: [userId], references: [id])
 }

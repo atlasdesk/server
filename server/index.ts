@@ -6,7 +6,7 @@ export const prisma = new PrismaClient({
 	errorFormat: "pretty",
 	datasources: {
 		db: {
-			url: process.env.POSTGRES_DATABASE_URL_EXTERNAL,
+			url: process.env.DATABASE_URL,
 		},
 	},
 });

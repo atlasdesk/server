@@ -1,5 +1,5 @@
 {
-  "name": "@tickety/server",
+  "name": "@atlasdesk/server",
   "module": "index.ts",
   "type": "module",
   "devDependencies": {
@@ -9,9 +9,9 @@
     "prisma-generator-fake-data": "^0.13.0",
     "zod-prisma": "^0.5.4"
   },
-	"scripts": {
-		"start:all": "docker compose up -d & bunx prisma studio & bun --watch ./src/server.ts"
-	},
+  "scripts": {
+    "start:all": "docker compose up -d & bunx prisma studio & bun --watch ./src/server.ts"
+  },
   "peerDependencies": {
     "typescript": "^5.0.0"
   },
@@ -21,6 +21,8 @@
     "@trpc/server": "^10.45.0",
     "cors": "^2.8.5",
     "express": "^4.18.2",
+    "jwt-simple": "^0.5.6",
+    "moment": "^2.30.1",
     "prisma": "^5.8.1",
     "ts-node": "^10.9.2",
     "typescript": "^5.3.3",

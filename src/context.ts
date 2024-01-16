@@ -6,6 +6,8 @@ export const createContext = ({
   res,
 }: trpcExpress.CreateExpressContextOptions) => {
   return {
+		authorization: req.headers.authorization || null,
+		ip: req.ip || req.socket.remoteAddress,
     req,
     res
   };

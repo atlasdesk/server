@@ -5,31 +5,29 @@ import { faker } from '@faker-js/faker';
 
 export function fakeUser() {
   return {
-    username: faker.internet.userName(),
     email: faker.internet.email(),
     password: faker.lorem.words(5),
     name: undefined,
+    surname: undefined,
     avatar_url: undefined,
     bio: undefined,
     website: undefined,
     location: undefined,
-    surname: undefined,
   };
 }
 export function fakeUserComplete() {
   return {
     id: faker.number.int(),
     uid: '[object Object]',
-    username: faker.internet.userName(),
     email: faker.internet.email(),
     password: faker.lorem.words(5),
     createdAt: new Date(),
     name: undefined,
+    surname: undefined,
     avatar_url: undefined,
     bio: undefined,
     website: undefined,
     location: undefined,
-    surname: undefined,
   };
 }
 export function fakeTicket() {
@@ -105,5 +103,21 @@ export function fakeTagsComplete() {
     uid: '[object Object]',
     name: faker.person.fullName(),
     color: faker.lorem.words(5),
+  };
+}
+export function fakeRefreshTokens() {
+  return {
+    token: faker.lorem.words(5),
+    ip: faker.lorem.words(5),
+    expiry: faker.date.anytime(),
+  };
+}
+export function fakeRefreshTokensComplete() {
+  return {
+    id: faker.number.int(),
+    token: faker.lorem.words(5),
+    userId: faker.number.int(),
+    ip: faker.lorem.words(5),
+    expiry: faker.date.anytime(),
   };
 }
