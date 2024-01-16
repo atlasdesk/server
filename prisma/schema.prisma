@@ -42,8 +42,6 @@ model User {
   website    String?
   location   String?
 
-  // Define a relation to represent tickets created by the user
-  tickets  Ticket[]
   // Define a relation to represent comments posted by the user
   comments Comment[]
 	refreshTokens RefreshTokens[]
@@ -60,11 +58,9 @@ model Ticket {
   createdAt   DateTime @default(now())
 
   // Define a relation to the user who created the ticket
-  createdBy   User?           @relation(fields: [createdById], references: [id])
   status      TicketStatus?   @relation(fields: [statusId], references: [id])
   priority    TicketPriority? @relation(fields: [priorityId], references: [id])
   tags        Tags[]
-  createdById Int
 
   // Define a relation to represent comments on the ticket
   comments Comment[]
@@ -125,4 +121,14 @@ model RefreshTokens {
 
 	// Relationen
 	user			User		@relation(fields: [userId], references: [id])
+}
+
+model ApiRequest {
+  id         Int      @id @default(autoincrement())
+  createdAt  DateTime @default(now())
+  ipAddress  String   // Assuming you want to store the IP address of the requester
+  userAgent  String?  // Optional field for storing user agent information
+  endpoint   String   // The API endpoint that was requested
+  method     String   // The HTTP method used (e.g., GET, POST)
+  responseCode Int    // The HTTP response code for the request
 }

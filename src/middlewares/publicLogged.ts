@@ -1,7 +1,7 @@
 import { prisma } from "../../server";
-import { privateProcedure } from "./private";
+import { publicProcedure } from "./public";
 
-export const loggedProcedure = privateProcedure.use(async (opts) => {
+export const loggedPublicProcedure = publicProcedure.use(async (opts) => {
 	const result = await opts.next();
 
 	await prisma.apiRequest.create({

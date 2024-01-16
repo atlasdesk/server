@@ -4,7 +4,12 @@ import { deleteUserProcedure } from "./procedures/auth/deleteUser";
 import { getAccessTokenProcedure } from "./procedures/auth/getAccessToken";
 import { getRefreshTokenProcedure } from "./procedures/auth/getRefreshToken";
 import { validateAccessTokenProcedure } from "./procedures/auth/validateAccessToken";
-import { createTicketProcedure } from "./procedures/tickets/create";
+import { createCommentProcedure } from "./procedures/comments/createComment";
+import { getCommentProcedure } from "./procedures/comments/getComment";
+import { createTicketProcedure } from "./procedures/tickets/createTicket";
+import { getTicketProcedure } from "./procedures/tickets/getTicket";
+import { getTicketCommentsProcedure } from "./procedures/tickets/getTicketComments";
+import { getTicketsProcedure } from "./procedures/tickets/getTickets";
 
 const router = t.router;
 
@@ -18,8 +23,15 @@ export const appRouter = router({
 		getRefreshToken: getRefreshTokenProcedure,
 		validateAccessToken: validateAccessTokenProcedure
 	}),
-	ticket: router({
-		createTicket: createTicketProcedure
+	tickets: router({
+		createTicket: createTicketProcedure,
+		getTicket: getTicketProcedure,
+		getTickets: getTicketsProcedure,
+		getTicketComments: getTicketCommentsProcedure
+	}),
+	comments: router({
+		createComment: createCommentProcedure,
+		getComment: getCommentProcedure
 	})
 });
 

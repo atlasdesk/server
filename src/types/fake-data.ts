@@ -45,7 +45,6 @@ export function fakeTicketComplete() {
     statusId: undefined,
     priorityId: undefined,
     createdAt: new Date(),
-    createdById: faker.number.int(),
   };
 }
 export function fakeComment() {
@@ -119,5 +118,25 @@ export function fakeRefreshTokensComplete() {
     userId: faker.number.int(),
     ip: faker.lorem.words(5),
     expiry: faker.date.anytime(),
+  };
+}
+export function fakeApiRequest() {
+  return {
+    ipAddress: faker.lorem.words(5),
+    userAgent: undefined,
+    endpoint: faker.lorem.words(5),
+    method: faker.lorem.words(5),
+    responseCode: faker.number.int(),
+  };
+}
+export function fakeApiRequestComplete() {
+  return {
+    id: faker.number.int(),
+    createdAt: new Date(),
+    ipAddress: faker.lorem.words(5),
+    userAgent: undefined,
+    endpoint: faker.lorem.words(5),
+    method: faker.lorem.words(5),
+    responseCode: faker.number.int(),
   };
 }

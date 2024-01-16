@@ -1,9 +1,9 @@
 import { TRPCError } from "@trpc/server";
 import { z } from "zod";
 import { TicketSchema, prisma, type Tags } from "../../../server";
-import { privateProcedure } from "../../middlewares/private";
+import { loggedPublicProcedure } from "../../middlewares/publicLogged";
 
-export const createTicketProcedure = privateProcedure
+export const createTicketProcedure = loggedPublicProcedure
 	.input(
 		TicketSchema.omit({
 			createdAt: true,
@@ -84,7 +84,6 @@ export const createTicketProcedure = privateProcedure
 			data: {
 				description: opts.input.description,
 				title: opts.input.title,
-				createdById: opts.ctx.user.id,
 				statusId,
 				priorityId,
 				tags: {

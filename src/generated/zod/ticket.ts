@@ -9,5 +9,4 @@ export const TicketSchema = z.object({
   statusId: z.number().int().nullish(),
   priorityId: z.number().int().nullish(),
   createdAt: z.date(),
-  createdById: z.number().int(),
 })

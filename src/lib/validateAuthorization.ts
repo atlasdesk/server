@@ -10,7 +10,7 @@ export async function validateAuthorization(authorization: string | null){
 	const [authorizationType, value] = authorization.split(" ");
 
 
-	if (authorizationType != "Bearer") {
+	if (authorizationType != "Bearer" || !value) {
 		// Wir unterstützen nur Bearer Tokens
 		throw new TRPCError({ code: "UNAUTHORIZED", message: "Für diese Action ist ein Bearer Token verpflichtend." });
 	}
